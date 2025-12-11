@@ -1,0 +1,156 @@
+/* ========================
+   RESET & BASE
+   ======================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fff;
+    overflow-x: hidden;
+}
+
+/* ========================
+   HEADER
+   ======================== */
+.site-header {
+    background-color: #fff;
+    /* On enlève un peu de padding bas car la vague contient du blanc maintenant */
+    padding: 15px 40px 10px 40px;
+
+    position: relative;
+    z-index: 100; /* Le chef, c'est le header */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- Gauche --- */
+.header-left { display: flex; align-items: center; gap: 20px; flex: 1; }
+.burger-menu { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 24px; }
+.burger-menu span { display: block; width: 100%; height: 1px; background-color: #000; }
+.nav-text { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; font-weight: 600; color: #111; }
+
+/* --- Centre (Logo) --- */
+.header-center { 
+    flex: 1; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+.logo-container { 
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.logo-brand {
+    height: 70px; /* Taille réduite */
+    width: auto;
+    max-width: 250px; /* Largeur maximale réduite */
+    object-fit: contain;
+}
+
+/* --- Droite --- */
+.header-right { flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 25px; }
+.lang-switch { text-decoration: none; color: #000; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
+.social-icon { display: flex; align-items: center; color: #000; }
+.btn-reserve { text-decoration: none; color: #c93026; font-weight: 700; font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; }
+
+/* ========================
+   LA VAGUE ROUGE (CORRIGÉE "Zéro trou")
+   ======================== */
+.wavy-decoration {
+    position: absolute;
+    /* On le colle tout en bas du header, mais on le fait descendre hors du flux */
+    bottom: -29px; /* Hauteur de la vague - 1px pour chevauchement */
+    left: 0;
+    width: 100%;
+    height: 30px;
+    z-index: 101; /* Reste au dessus de l'image */
+    pointer-events: none;
+
+    /* NOUVEAU SVG "REMPLI" :
+       La partie haute est BLANCHE (fill='%23fff') pour cacher l'image qui passe derrière.
+       La ligne rouge (stroke) fait la déco.
+    */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 28' preserveAspectRatio='none'%3E%3Cpath d='M0 0 L 0 10 Q 30 25 60 10 T 120 10 L 120 0 Z' fill='%23fff' stroke='none' /%3E%3Cpath d='M0 10 Q 30 25 60 10 T 120 10' fill='none' stroke='%23d63026' stroke-width='3' /%3E%3C/svg%3E");
+
+    /* 160px = Vagues très étirées (moins de ronds) */
+    background-size: 160px 30px;
+    background-repeat: repeat-x;
+    background-position: center bottom;
+}
+
+/* ========================
+   SECTION IMAGE
+   ======================== */
+.hero-section {
+    position: relative;
+    height: 85vh; /* Un peu plus grand */
+    min-height: 500px;
+    width: 100%;
+
+    /* Image ajustée */
+    background: url('https://static.where-e.com/France/Asian-Store_b24058913253401043ca80c8fc4becc8.jpg') center 70% / cover no-repeat;
+
+    /* C'est ici qu'on évite le trou blanc :
+       On fait remonter l'image SOUS le header.
+       Comme le header et la vague ont du blanc opaque, ça cache le haut de l'image proprement.
+    */
+    margin-top: -30px;
+    z-index: 1;
+}
+
+/* Textes manuscrits */
+.floating-text {
+    position: absolute;
+    font-family: 'Allura', cursive;
+    color: #ffffff; /* Changé de #d63026 (rouge) à #ffffff (blanc) */
+    font-size: 6rem;
+    line-height: 1;
+    transform: rotate(-10deg);
+    text-shadow: 
+        1px 1px 1px rgba(0,0,0,0.5),
+        -1px -1px 1px rgba(0,0,0,0.5),
+        1px -1px 1px rgba(0,0,0,0.5),
+        -1px 1px 1px rgba(0,0,0,0.5);
+    pointer-events: none;
+}
+.text-joie { top: 18%; left: 15%; }
+.text-elegance { bottom: 25%; right: 15%; }
+
+/* ========================
+   BANDEAU ROUGE BAS
+   ======================== */
+.bottom-banner {
+    background-color: #d63026;
+    color: #fff;
+    text-align: center;
+    padding: 15px 20px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+.bottom-banner p {
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ========================
+   RESPONSIVE
+   ======================== */
+@media (max-width: 900px) {
+    .floating-text { font-size: 4rem; }
+}
+
+@media (max-width: 600px) {
+    .site-header { padding: 15px 20px; }
+    .nav-text, .lang-switch, .logo-city, .btn-reserve { display: none; }
+    .logo-brand { font-size: 2rem; }
+    .wavy-decoration { background-size: 100px 25px; } /* Ajustement mobile */
+    .hero-section { height: 60vh; margin-top: -20px; }
+    .floating-text { font-size: 3rem; }
+    .bottom-banner p { font-size: 0.7rem; }
+}
